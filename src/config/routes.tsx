@@ -17,5 +17,6 @@ export const routes: RouteRecordRaw[] = [
       { path: '3', component: Third },
       { path: '4', component: Fourth },
     ]
-  }
+  },
+  { path: '/start', redirect: '/welcome/1' }
 ]

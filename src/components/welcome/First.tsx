@@ -1,12 +1,12 @@
-import { defineComponent } from 'vue';
-import s from './First.module.scss';
+import { FunctionalComponent } from 'vue';
+import s from './WelcomeLayout.module.scss';
 import pig from '../../assets/icons/pig.svg';
 import { RouterLink } from 'vue-router';
 import { WelcomeLayout } from './WelcomeLayout';
 
-export const First = defineComponent({
-  setup: (props, context) => {
-    const slots = {
+export const First: FunctionalComponent = () => {
+  return <WelcomeLayout>
+    {{
       icon: () => <img src={pig}></img>,
       title: () => <h2>会挣钱<br />还要会省钱</h2>,
       buttons: () => <>
@@ -14,9 +14,8 @@ export const First = defineComponent({
         <RouterLink to="/welcome/2">下一页</RouterLink>
         <RouterLink to="/start" >跳过</RouterLink>
       </>
-    }
-    return () => (
-      <WelcomeLayout v-slots={slots} />
-    )
-  }
-})
+    }}
+  </WelcomeLayout>
+}
+
+First.displayName = 'First'
