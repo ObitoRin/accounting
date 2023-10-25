@@ -4,23 +4,23 @@ import s from './Welcome.module.scss';
 import { useSwipe } from '../hooks/useSwipe';
 import { throttle } from '../config/throttle';
 
+const replaceMap: Record<string, string> = {
+  'Welcome1': '/welcome/2',
+  'Welcome2': '/welcome/3',
+  'Welcome3': '/welcome/4',
+  'Welcome4': '/start',
+}
+
 export const Welcome = defineComponent({
   setup: (props, context) => {
     const router = useRouter()
     const route = useRoute()
     const main = ref<HTMLElement>()
     const { direction, swiping } = useSwipe(main, { beforeStart: (e) => e.preventDefault() })
-
+   
     const replace = throttle(() => {
-      if (route.name === 'Welcome1') {
-        router.replace('/welcome/2')
-      } else if (route.name === 'Welcome2') {
-        router.replace('/welcome/3')
-      } else if (route.name === 'Welcome3') {
-        router.replace('/welcome/4')
-      } else if (route.name === 'Welcome4') {
-        router.replace('/start')
-      }
+      const name = (route.name || 'Welcome1').toString()
+      router.replace(replaceMap[name])
     }, 500)
 
     watchEffect(() => {
