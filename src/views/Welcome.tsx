@@ -2,7 +2,7 @@ import { defineComponent, ref, Transition, VNode, watchEffect } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterView, useRoute, useRouter } from 'vue-router';
 import s from './Welcome.module.scss';
 import { useSwipe } from '../hooks/useSwipe';
-import { throttle } from '../config/throttle';
+import { throttle } from '../shared/throttle';
 
 const replaceMap: Record<string, string> = {
   'Welcome1': '/welcome/2',
