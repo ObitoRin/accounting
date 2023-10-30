@@ -27,9 +27,9 @@ export const InputPad = defineComponent({
       { text: '提交', onClick: () => { } },
     ]
     return () => <>
-      <div>
+      <div class={s.dateAndAmount}>
         <span class={s.date}>
-          <Icon name="notes" />
+          <Icon name="notes" class={s.icon} />
           <span>2020-11-11</span>
         </span>
         <span class={s.amount}>199.66</span>
