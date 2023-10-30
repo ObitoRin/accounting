@@ -4,7 +4,6 @@ import s from './Navbar.module.scss';
 export const Navbar = defineComponent({
   setup: (props, context) => {
     const { slots } = context
-    console.log('slots', slots);
 
     return () => (
       <div class={s.navbar}>
