@@ -1,5 +1,5 @@
-import { defineComponent, onMounted, PropType } from 'vue';
-import { MainLayout } from '../../views/layouts/MainLayout';
+import { defineComponent, PropType } from 'vue';
+import { MainLayout } from '../../layouts/MainLayout';
 import { Icon } from '../../shared/Icon';
 import s from './ItemCreate.module.scss';
 

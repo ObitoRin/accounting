@@ -6,7 +6,7 @@ import { Center } from '../shared/Center';
 import { Icon } from '../shared/Icon';
 import { Overlay } from '../shared/Overlay';
 import { RouterLink } from 'vue-router';
-import { MainLayout } from './layouts/MainLayout';
+import { MainLayout } from '../layouts/MainLayout';
 
 export const StartPage = defineComponent({
   setup: (props, context) => {

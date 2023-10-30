@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { Navbar } from '../../shared/Navbar';
+import { Navbar } from '../shared/Navbar';
 
 export const MainLayout = defineComponent({
   setup: (props, context) => {
