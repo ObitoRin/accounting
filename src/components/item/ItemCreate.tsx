@@ -1,8 +1,9 @@
-import { defineComponent, onMounted, PropType, ref } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import { MainLayout } from '../../layouts/MainLayout';
 import { Icon } from '../../shared/Icon';
 import s from './ItemCreate.module.scss';
 import { Tabs, Tab } from '../../shared/Tabs';
+import { InputPad } from './InputPad';
 
 export const ItemCreate = defineComponent({
   props: {
@@ -27,6 +28,9 @@ export const ItemCreate = defineComponent({
                 <Tab name="支出">icon 列表</Tab>
                 <Tab name="收入">icon 列表2</Tab>
               </Tabs>
+              <div class={s.inputPad_wrapper}>
+                <InputPad />
+              </div>
             </>
           }}
         </MainLayout>
