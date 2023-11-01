@@ -6,4 +6,13 @@
   background: var(--button-bg);
   border: 1px solid var(--button-bg);
   border-radius: var(--button-radius);
+
+  &.important {}
+
+  &.normal {}
+
+  &.danger {
+    background: var(--button-bg-danger);
+    border-color: var(--button-bg-danger);
+  }
 }

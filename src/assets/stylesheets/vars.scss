@@ -1,6 +1,7 @@
 :root {
   --amount-text: #53A867;
   --button-bg: #5C33BE;
+  --button-bg-danger: #E10505;
   --button-border-color: #ddd;
   --button-font-size: 18px;
   --button-height: 48px;
@@ -15,14 +16,14 @@
   --input-border-color: #5c33be;
   --input-min-height: 48px;
   --input-radius: var(--button-radius);
-  --input-shadow: rgba(0,0,0,0.25);
+  --input-shadow: rgba(0, 0, 0, 0.25);
   --main: #5c33be;
   --navbar-bg-end: var(--welcome-bg-end);
   --navbar-bg-start: var(--welcome-bg-start);
   --navbar-text: white;
   --number-button-bg-important: #5C33BE;
   --number-button-bg: white;
-  --number-button-text-important:white;
+  --number-button-text-important: white;
   --overlay-bg: white;
   --overlay-mask-bg: rgba(0, 0, 0, 0.5);
   --overlay-user-bg: #5C33BE;
@@ -37,6 +38,6 @@
   --welcome-nav-gap: 8px;
   --welcome-nav-height: 64px;
   --welcome-text: white;
-  --z-index-bottom-nav: 8; 
+  --z-index-bottom-nav: 8;
   --z-index-overlay: 16;
 }
