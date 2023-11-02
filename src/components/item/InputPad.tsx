@@ -1,7 +1,7 @@
 import { defineComponent, PropType, ref } from 'vue';
 import s from './InputPad.module.scss';
 import { Icon } from '../../shared/Icon';
-import { time } from '../../shared/time';
+import { Time } from '../../shared/time';
 import { DatetimePicker, Popup } from 'vant';
 
 export const InputPad = defineComponent({
@@ -73,7 +73,8 @@ export const InputPad = defineComponent({
       <div class={s.dateAndAmount}>
         <span class={s.date}>
           <Icon name="notes" class={s.icon} />
-          <span onClick={showDatePicker}>{time(refDate.value).format()}</span>
+          {/* <span onClick={showDatePicker}>{time(refDate.value).format()}</span> */}
+          <span onClick={showDatePicker}>{new Time(refDate.value).format()}</span>
           <Popup v-model:show={refDatePickerVisible.value} position="bottom">
             <DatetimePicker
               value={refDate.value}
