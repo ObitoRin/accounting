@@ -1,6 +1,9 @@
-import { defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType, reactive, ref } from 'vue';
 import { FormItem } from '../../shared/Form';
 import s from './Chart.module.scss';
+import { LineChart } from './LineChart';
+import { PieChart } from './PieChart';
+import { Bars } from './Bars';
 
 export const Chart = defineComponent({
   props: {
@@ -15,6 +18,7 @@ export const Chart = defineComponent({
   },
   setup: (props, context) => {
     const category = ref('expenses')
+
     return () => (
       <div class={s.wrapper}>
         <FormItem
@@ -26,6 +30,9 @@ export const Chart = defineComponent({
             { text: '收入', value: 'income' },
           ]}
         />
+        <LineChart />
+        <PieChart />
+        <Bars />
       </div>
     )
   }
