@@ -33,6 +33,10 @@ export const SignInPage = defineComponent({
         { key: 'code', type: 'required', message: '必填' },
       ]))
     }
+    const sendValidationCode = () => {
+      console.log(1111);
+      
+    }
     return () => (
       <MainLayout>
         {{
@@ -58,6 +62,7 @@ export const SignInPage = defineComponent({
                   label="验证码"
                   placeholder="请输入六位数字"
                   error={errors.code?.[0]}
+                  onClick={sendValidationCode}
                 />
                 <FormItem style={{ paddingTop: '96px' }}>
                   <Button>登录</Button>
