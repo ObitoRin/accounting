@@ -7,6 +7,10 @@
   border: 1px solid var(--button-bg);
   border-radius: var(--button-radius);
 
+  &[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   &.important {}
 
   &.normal {}
