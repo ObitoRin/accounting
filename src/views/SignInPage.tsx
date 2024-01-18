@@ -1,12 +1,13 @@
 import { defineComponent, PropType, reactive, ref } from 'vue';
 import s from './SignInPage.module.scss';
 import { Form, FormItem } from '../shared/Form';
-import { validate } from '../shared/validate';
+import { hasError, validate } from '../shared/validate';
 import { MainLayout } from '../layouts/MainLayout';
 import { Icon } from '../shared/Icon';
 import { Button } from '../shared/Button';
 import { http } from '../shared/Http';
 import { useBool } from '../hooks/useBool';
+import { history } from '../shared/history';
 
 export const SignInPage = defineComponent({
   props: {
@@ -25,7 +26,7 @@ export const SignInPage = defineComponent({
     })
     const refValidationCode = ref<any>()
     const { ref: refDisabled, disabled, enable } = useBool(false)
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
         email: [],
@@ -36,13 +37,28 @@ export const SignInPage = defineComponent({
         { key: 'email', type: 'pattern', regexp: /.+@.+/, message: '必须是邮箱地址' },
         { key: 'code', type: 'required', message: '必填' },
       ]))
+
+      if (!hasError(errors)) {
+        const response = await http.post<{ jwt: string }>('/session', formData)
+          .catch(onError)
+        localStorage.setItem('jwt', response.data.jwt)
+        history.push('/')
+      }
     }
     const onError = (error: any) => {
-      if (error.response.status === 422){
+      if (error.response.status === 422) {
         Object.assign(errors, error.response.data.errors)
       }
     }
     const sendValidationCode = async () => {
+      Object.assign(errors, {
+        email: [],
+      })
+      Object.assign(errors, validate(formData, [
+        { key: 'email', type: 'required', message: '必填' },
+        { key: 'email', type: 'pattern', regexp: /.+@.+/, message: '必须是邮箱地址' },
+      ]))
+      if (hasError(errors)) return;
       disabled()
       const response = await http.post('/validation_codes', { email: formData.email })
         .catch(onError)
@@ -80,7 +96,7 @@ export const SignInPage = defineComponent({
                   onClick={sendValidationCode}
                 />
                 <FormItem style={{ paddingTop: '96px' }}>
-                  <Button>登录</Button>
+                  <Button type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>
