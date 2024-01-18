@@ -5,7 +5,8 @@ import { validate } from '../shared/validate';
 import { MainLayout } from '../layouts/MainLayout';
 import { Icon } from '../shared/Icon';
 import { Button } from '../shared/Button';
-import { http } from '../shared/Http'
+import { http } from '../shared/Http';
+import { useBool } from '../hooks/useBool';
 
 export const SignInPage = defineComponent({
   props: {
@@ -23,6 +24,7 @@ export const SignInPage = defineComponent({
       code: []
     })
     const refValidationCode = ref<any>()
+    const { ref: refDisabled, disabled, enable } = useBool(false)
     const onSubmit = (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
@@ -41,8 +43,10 @@ export const SignInPage = defineComponent({
       }
     }
     const sendValidationCode = async () => {
+      disabled()
       const response = await http.post('/validation_codes', { email: formData.email })
         .catch(onError)
+        .finally(enable)
       refValidationCode.value.startCount()
     }
     return () => (
@@ -72,6 +76,7 @@ export const SignInPage = defineComponent({
                   placeholder="请输入六位数字"
                   error={errors.code?.[0]}
                   countFrom={1}
+                  disabled={refDisabled.value}
                   onClick={sendValidationCode}
                 />
                 <FormItem style={{ paddingTop: '96px' }}>
