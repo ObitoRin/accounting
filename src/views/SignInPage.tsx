@@ -7,7 +7,7 @@ import { Icon } from '../shared/Icon';
 import { Button } from '../shared/Button';
 import { http } from '../shared/Http';
 import { useBool } from '../hooks/useBool';
-import { history } from '../shared/history';
+import { useRoute, useRouter } from 'vue-router';
 
 export const SignInPage = defineComponent({
   props: {
@@ -16,6 +16,8 @@ export const SignInPage = defineComponent({
     }
   },
   setup: (props, context) => {
+    const route = useRoute()
+    const router = useRouter()
     const formData = reactive({
       email: 'Obitoxian@163.com',
       code: ''
@@ -42,7 +44,9 @@ export const SignInPage = defineComponent({
         const response = await http.post<{ jwt: string }>('/session', formData)
           .catch(onError)
         localStorage.setItem('jwt', response.data.jwt)
-        history.push('/')
+        // router.push('/sign_in?return_to' + encodeURIComponent(route.fullPath))
+        const returnTo = route.query.return_to?.toString()
+        router.push(returnTo || '/')
       }
     }
     const onError = (error: any) => {
