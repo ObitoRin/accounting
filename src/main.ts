@@ -26,11 +26,10 @@ router.beforeEach((to, from) => {
       return true
     }
   }
-  return promiseMe!
-    .then(
-      () => true,
-      () => '/sign_in?return_to=' + to.path
-    )
+  return promiseMe!.then(
+    () => true,
+    () => '/sign_in?return_to=' + to.path
+  )
 })
 
 const app = createApp(App)
