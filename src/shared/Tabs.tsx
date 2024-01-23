@@ -22,10 +22,10 @@ export const Tabs = defineComponent({
     const cp = props.classPrefix;
 
     return () => (
-      <div class={[s.tabs, cp + '_tabs']}>
-        <ol class={[s.tabs_nav, cp + '_tabs_nav']}>
+      <div class={[s.tabs, cp ? `${cp}_tabs` : '']}>
+        <ol class={[s.tabs_nav, cp ? `${cp}_tabs_nav` : '']}>
           {tabs.map(item =>
-            <li class={[item.props?.name === props.selected ? [s.selected, cp + '_selected'] : '', cp + '_tabs_nav_item']}
+            <li class={[item.props?.name === props.selected ? [s.selected, cp ? `${cp}_selected` : ''] : '', cp ? `${cp}_tabs_nav_item` : '']}
               onClick={() => context.emit('update:selected', item.props?.name)}
             >{item.props?.name}</li>
           )}
