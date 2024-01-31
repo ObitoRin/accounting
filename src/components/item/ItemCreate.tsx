@@ -4,7 +4,7 @@ import { Icon } from '../../shared/Icon';
 import s from './ItemCreate.module.scss';
 import { Tabs, Tab } from '../../shared/Tabs';
 import { InputPad } from './InputPad';
-import { Tags } from './Tasg';
+import { Tags } from './Tags';
 import { http } from '../../shared/Http';
 import { useRouter } from 'vue-router';
 import { Dialog } from 'vant';
