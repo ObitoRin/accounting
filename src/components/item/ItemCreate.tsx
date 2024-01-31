@@ -9,6 +9,7 @@ import { http } from '../../shared/Http';
 import { useRouter } from 'vue-router';
 import { Dialog } from 'vant';
 import { AxiosError } from 'axios';
+import { BackIcon } from '../../shared/BackIcon';
 
 export const ItemCreate = defineComponent({
   props: {
@@ -49,7 +50,7 @@ export const ItemCreate = defineComponent({
         <MainLayout class={s.layout}>
           {{
             title: () => '记一笔',
-            icon: () => <Icon name="left" class={s.navIcon} />,
+            icon: () => <BackIcon />,
             default: () => <>
               {/* <Tabs selected={refKind.value} onUpdateSelected={onUpdateSelected}> */}
               <div class={s.wrapper}>
