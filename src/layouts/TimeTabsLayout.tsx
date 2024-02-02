@@ -11,11 +11,11 @@ const demo = defineComponent({
   props: {
     startDate: {
       type: String as PropType<string>,
-      required: true
+      required: false
     },
     endDate: {
       type: String as PropType<string>,
-      required: true
+      required: false
     }
   },
 })
@@ -30,10 +30,10 @@ export const TimeTabsLayout = defineComponent({
   setup: (props, context) => {
     const refSelected = ref('本月')
     const time = new Time()
-    const customTime = reactive({
-      start: new Time().format(),
-      end: new Time().format()
-    })
+    const customTime = reactive<{
+      start?: string;
+      end?: string;
+    }>({})
     const timeList = [
       { start: time.firstDayOfMonth(), end: time.lastDayOfMonth() },
       { start: time.add(-1, 'month').firstDayOfMonth(), end: time.add(-1, 'month').lastDayOfMonth() },
