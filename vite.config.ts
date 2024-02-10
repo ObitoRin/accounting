@@ -19,6 +19,7 @@ export default defineConfig({
     }),
   ],
   server: {
+    host: true,
     proxy: {
       '/api/v1': 'http://121.196.236.94:3000/'
     }
