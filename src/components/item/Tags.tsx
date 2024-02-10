@@ -20,6 +20,7 @@ export const Tags = defineComponent({
       return http.get<Resources<Tag>>('/tags', {
         kind: props.kind,
         page: page + 1,
+      }, {
         _mock: 'tagIndex',
       })
     })
@@ -42,10 +43,10 @@ export const Tags = defineComponent({
       clearTimeout(timer.value)
     }
     const onTouchMove = (e: TouchEvent) => {
-      const pointedElement  = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
-      if (currentTag.value !== pointedElement  &&
-        currentTag.value?.contains(pointedElement ) === false) {
-        clearTimeout(timer.value)  
+      const pointedElement = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
+      if (currentTag.value !== pointedElement &&
+        currentTag.value?.contains(pointedElement) === false) {
+        clearTimeout(timer.value)
       }
     }
     return () => <>
@@ -59,7 +60,7 @@ export const Tags = defineComponent({
           </div>
         </RouterLink>
         {tags.value.map(tag =>
-          <div class={[s.tag, props.selected === tag.id ? s.selected : '']} 
+          <div class={[s.tag, props.selected === tag.id ? s.selected : '']}
             onClick={() => onSelect(tag)}
             onTouchstart={(e) => onTouchStart(e, tag)}
             onTouchend={onTouchEnd}
