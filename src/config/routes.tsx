@@ -17,7 +17,7 @@ import { TagCreate } from "../components/tag/TagCreate";
 import { TagEdit } from "../components/tag/TagEdit";
 import { SignInPage } from "../views/SignInPage";
 import { StatisticsPage } from "../views/StatisticsPage";
-import { http } from "../shared/Http";
+import { ComingSoon } from "../shared/ComingSoon";
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
@@ -29,10 +29,10 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       { path: '', redirect: '/welcome/1' },
-      { path: '1', name: 'Welcome1', components: { main: First, footer: FirstActions } },
-      { path: '2', name: 'Welcome2', components: { main: Second, footer: SecondActions } },
-      { path: '3', name: 'Welcome3', components: { main: Third, footer: ThirdActions} },
-      { path: '4', name: 'Welcome4', components: { main: Fourth, footer: FourthActions} },
+      { path: '1', name: "Welcome1", components: { main: First, footer: FirstActions }, },
+      { path: '2', name: "Welcome2", components: { main: Second, footer: SecondActions }, },
+      { path: '3', name: "Welcome3", components: { main: Third, footer: ThirdActions }, },
+      { path: '4', name: "Welcome4", components: { main: Fourth, footer: FourthActions }, },
     ]
   },
   { path: '/start', component: StartPage },
@@ -51,9 +51,13 @@ export const routes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: '/sign_in', component: SignInPage,
+    path: '/sign_in', component: SignInPage
   },
   {
-    path: '/statistics', component: StatisticsPage,
-  },
+    path: '/statistics', component: StatisticsPage
+  },{
+    path: '/export', component: ComingSoon
+  },{
+    path: '/notify', component: ComingSoon
+  }
 ]
