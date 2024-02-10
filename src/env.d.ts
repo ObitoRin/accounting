@@ -21,8 +21,8 @@ type Item = {
   id: number;
   user_id: number;
   amount: number;
-  tags_id: number[];
-  tags: Tag[],
+  tag_ids: number[];
+  tags?: Tag[],
   happen_at: string;
   kind: 'expenses' | 'income';
 }
@@ -48,3 +48,5 @@ type Resource<T = any> = {
 type ResourceError = {
   errors: Record<string, string[]>
 }
+
+type FormErrors<T> = { [K in keyof typeof T]: string[] } 
