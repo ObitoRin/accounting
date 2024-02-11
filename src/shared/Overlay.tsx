@@ -2,18 +2,19 @@ import { defineComponent, onMounted, PropType, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { Icon } from './Icon';
 import s from './Overlay.module.scss';
-import { promiseMe } from './Me';
 import { Dialog } from 'vant';
+import { useMeStore } from '../stores/useMeStore';
 
 export const Overlay = defineComponent({
   props: {
     onClose: Function as PropType<() => void>
   },
   setup: (props, context) => {
+    const meStore = useMeStore()
     const route = useRoute()
     const me = ref()
     onMounted(async () => {
-      const response = await promiseMe
+      const response = await meStore.mePromise
       me.value = response?.data.resource
     })
     const onSignOut = async () => {
