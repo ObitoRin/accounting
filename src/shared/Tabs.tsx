@@ -16,17 +16,17 @@ export const Tabs = defineComponent({
   },
   emits: ['update:selected'],
   setup: (props, context) => {
-    const tabs = context.slots.default?.();
-    if (!tabs) return () => null;
-    for (let i = 0; i < tabs.length; i++) {
-      if (tabs[i].type !== Tab) {
-        throw new Error('<Tabs> only accepts <Tab> as children')
-      }
-    }
-    const cp = props.classPrefix;
 
-    return () => (
-      <div class={[s.tabs, cp ? `${cp}_tabs` : '']}>
+    return () => {
+      const tabs = context.slots.default?.();
+      if (!tabs) return () => null;
+      for (let i = 0; i < tabs.length; i++) {
+        if (tabs[i].type !== Tab) {
+          throw new Error('<Tabs> only accepts <Tab> as children')
+        }
+      }
+      const cp = props.classPrefix;
+      return <div class={[s.tabs, cp ? `${cp}_tabs` : '']}>
         <ol class={[s.tabs_nav, cp ? `${cp}_tabs_nav` : '']}>
           {tabs.map(item =>
             <li class={[item.props?.value === props.selected ? [s.selected, cp ? `${cp}_selected` : ''] : '', cp ? `${cp}_tabs_nav_item` : '']}
@@ -45,7 +45,7 @@ export const Tabs = defineComponent({
           </div>
         }
       </div>
-    )
+    }
   }
 })
 
