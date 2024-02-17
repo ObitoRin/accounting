@@ -67,7 +67,7 @@ export const TimeTabsLayout = defineComponent({
     return () => (
       <MainLayout>
         {{
-          title: () => '记账',
+          title: () => '荔枝记账',
           icon: () => <OverlayIcon />,
           default: () => <>
               {props.hideThisYear ? 
