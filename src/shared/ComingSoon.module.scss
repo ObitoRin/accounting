@@ -1,12 +1,21 @@
-.text{
+.text {
   text-align: center;
   font-size: 32px;
 }
 
-.pig{
+.link {
+  text-align: center;
+  margin-top: 120px;
+  .back{
+    width: 50%;
+  }
+}
+
+.pig {
   width: 128px;
   height: 128px;
-  &_wrapper{
+
+  &_wrapper {
     padding: 120px 0;
   }
 }
