@@ -1,9 +1,16 @@
 import { defineComponent, onMounted, PropType, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { Icon } from './Icon';
+import type { IconName } from './Icon';
 import s from './Overlay.module.scss';
 import { Dialog } from 'vant';
 import { useMeStore } from '../stores/useMeStore';
+
+type Action = {
+  to: string;
+  iconName: IconName;
+  text: string;
+}
 
 export const Overlay = defineComponent({
   props: {
@@ -25,6 +32,12 @@ export const Overlay = defineComponent({
       localStorage.removeItem('jwt')
       window.location.reload()
     }
+    const actionList: Action[] = [
+      { to: '/items', iconName: 'pig', text: '记账' },
+      { to: '/statistics', iconName: 'charts', text: '统计图表' },
+      { to: '/export', iconName: 'export', text: '导出数据' },
+      { to: '/notify', iconName: 'notify', text: '记账提醒' },
+    ]
     return () => <>
       <div class={s.mask} onClick={props?.onClose}></div>
       <div class={s.overlay}>
@@ -43,24 +56,14 @@ export const Overlay = defineComponent({
         </section>
         <nav>
           <ul class={s.action_list}>
-            <li>
-              <RouterLink to="/statistics" class={s.action}>
-                <Icon name="charts" class={s.icon} />
-                <span>统计图表</span>
-              </RouterLink>
-            </li>
-            <li>
-              <RouterLink to="/export" class={s.action}>
-                <Icon name="export" class={s.icon} />
-                <span>导出数据</span>
-              </RouterLink>
-            </li>
-            <li>
-              <RouterLink to="/notify" class={s.action}>
-                <Icon name="notify" class={s.icon} />
-                <span>记账提醒</span>
-              </RouterLink>
-            </li>
+            {actionList.map(item =>
+              <li class={route.fullPath === item.to ? s.active : ''}>
+                <RouterLink to={item.to} class={s.action}>
+                  <Icon name={item.iconName} class={s.icon} />
+                  <span>{item.text}</span>
+                </RouterLink>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

@@ -40,6 +40,10 @@
   &_list {
     padding-top: 16px;
     font-size: 20px;
+    .active{
+      color: var(--navbar-text);
+      background-color: var(--welcome-bg-end);
+    }
   }
 
   >.icon {
