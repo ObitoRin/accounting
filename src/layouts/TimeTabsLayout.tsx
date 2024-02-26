@@ -6,6 +6,8 @@ import { MainLayout } from './MainLayout';
 import { OverlayIcon } from '../shared/Overlay';
 import { Tab, Tabs } from '../shared/Tabs';
 import { Form, FormItem } from '../shared/Form';
+import { useMeStore } from '../stores/useMeStore';
+import { useRouter } from 'vue-router';
 
 const demo = defineComponent({
   props: {
@@ -52,6 +54,9 @@ export const TimeTabsLayout = defineComponent({
       { start: time.firstDayOfYear(), end: time.lastDayOfYear() }
     ]
     const refOverlayVisible = ref(false)
+    const meStore = useMeStore()
+    const router = useRouter()
+
     const onSelect = () => {
       if (refSelected.value === '自定义时间') {
         refOverlayVisible.value = true
@@ -59,6 +64,10 @@ export const TimeTabsLayout = defineComponent({
     }
 
     const onSubmitCustomTime = (e: Event) => {
+      if (!meStore.me) {
+        router.push('/items/create')
+        return
+      }
       e.preventDefault()
       refOverlayVisible.value = false
       Object.assign(customTime, tempTime)
