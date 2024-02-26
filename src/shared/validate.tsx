@@ -25,7 +25,7 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>) => {
 
     switch (type) {
       case 'required':
-        if (isEmpty(value)) {
+        if (isEmpty(value) || value.length === 0) {
           errors[key] = errors[key] ?? []
           errors[key]?.push(message)
         }
@@ -59,7 +59,7 @@ export function hasError(errors: Record<string, string[]>) {
 
   let result = false
   for (let key in errors) {
-    if (errors[key].length > 0) {
+    if (errors[key]?.length > 0) {
       result = true
       break
     }
