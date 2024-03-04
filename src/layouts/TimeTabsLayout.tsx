@@ -1,6 +1,6 @@
 import { PropType, defineComponent, reactive, ref } from 'vue';
 import s from './TimeTabsLayout.module.scss';
-import { Overlay } from 'vant'
+import { Dialog, Overlay } from 'vant'
 import { Time } from '../shared/time';
 import { MainLayout } from './MainLayout';
 import { OverlayIcon } from '../shared/Overlay';
@@ -64,11 +64,21 @@ export const TimeTabsLayout = defineComponent({
     }
 
     const onSubmitCustomTime = (e: Event) => {
+      e.preventDefault()
+
       if (!meStore.me) {
         router.push('/items/create')
         return
       }
-      e.preventDefault()
+      if (new Time(tempTime.start).getTimestamp() > new Time(tempTime.end).getTimestamp()) {
+        Dialog.alert({ title: '提示', message: '结束时间必须大于开始时间', closeOnPopstate: false, })
+        return
+      }
+      if (props.hideThisYear && (new Time(tempTime.start).getTimestamp() >= new Time(tempTime.end).getTimestamp())) {
+        Dialog.alert({ title: '提示', message: '结束时间必须大于开始时间', closeOnPopstate: false, })
+        return
+      }
+
       refOverlayVisible.value = false
       Object.assign(customTime, tempTime)
     }
