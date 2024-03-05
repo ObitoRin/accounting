@@ -76,9 +76,17 @@ export const TimeTabsLayout = defineComponent({
         Dialog.alert({ title: '提示', message: '结束时间必须大于开始时间', closeOnPopstate: false, })
         return
       }
-      if (props.hideThisYear && (new Time(tempTime.start).getTimestamp() >= new Time(tempTime.end).getTimestamp())) {
-        Dialog.alert({ title: '提示', message: '结束时间必须大于开始时间', closeOnPopstate: false, })
-        return
+
+      if (props.hideThisYear) {
+        if (new Time(tempTime.start).getTimestamp() >= new Time(tempTime.end).getTimestamp()) {
+          Dialog.alert({ title: '提示', message: '结束时间必须大于开始时间', closeOnPopstate: false, })
+          return
+        }
+        
+        if ((new Date(tempTime.start).getFullYear() !== new Date(tempTime.end).getFullYear()) || (new Date(tempTime.start).getMonth() + 1 !== new Date(tempTime.end).getMonth() + 1)) {
+          Dialog.alert({ title: '提示', message: '开始和结束范围不能超过一个月', closeOnPopstate: false, })
+          return
+        }
       }
 
       refOverlayVisible.value = false

@@ -47,6 +47,9 @@ export const Chart = defineComponent({
       })
     })
     const fetchData1 = async () => {
+      if (!props.startDate || !props.endDate) {
+        return
+      }
       const response = await http.get<{ groups: Data1, summary: number }>('/items/summary', {
         happen_after: props.startDate,
         happen_before: props.endDate,
@@ -70,6 +73,9 @@ export const Chart = defineComponent({
       }))
     )
     const fetchData2 = async () => {
+      if (!props.startDate || !props.endDate) {
+        return
+      }
       const response = await http.get<{ groups: Data2, summary: number }>('/items/summary', {
         happen_after: props.startDate,
         happen_before: props.endDate,
@@ -89,6 +95,11 @@ export const Chart = defineComponent({
         ...item,
         percent: Math.round(item.amount / total * 100)
       }))
+    })
+
+    watch(() => [props.startDate, props.endDate], () => {
+      fetchData1()
+      fetchData2()
     })
 
     watchEffect(
