@@ -33,7 +33,7 @@ export const Overlay = defineComponent({
       window.location.reload()
     }
     const actionList: Action[] = [
-      { to: '/items', iconName: 'pig', text: '记账' },
+      { to: '/items', iconName: 'lychee', text: '记账' },
       { to: '/statistics', iconName: 'charts', text: '统计图表' },
       { to: '/export', iconName: 'export', text: '导出数据' },
       { to: '/notify', iconName: 'notify', text: '记账提醒' },
