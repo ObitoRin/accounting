@@ -44,7 +44,7 @@ export const TimeTabsLayout = defineComponent({
     const time = new Time()
     const tempTime = reactive({
       start: new Time().format(),
-      end: new Time().format(),
+      end: new Time().add(1, 'day').format(),
     })
     const customTime = reactive<{
       start?: string;
