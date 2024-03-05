@@ -67,7 +67,10 @@ export const ItemCreate = defineComponent({
       router.push('/items')
     }
     watchEffect(
-      () => userPreferenceStore.changeKind(formData.kind as 'expenses' | 'income'),
+      () => {
+        userPreferenceStore.changeKind(formData.kind as 'expenses' | 'income')
+        formData.tag_ids = []
+      },
       { flush: "post" }
     );
     onUnmounted(() => {
