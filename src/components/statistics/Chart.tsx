@@ -56,7 +56,8 @@ export const Chart = defineComponent({
         _mock: 'itemSummary',
         _autoLoading: true,
       })
-      data1.value = response.data.groups
+      // data1.value = response.data.groups
+      data1.value = response.data.groups.sort((a, b) => new Time(a.happen_at).getTimestamp() - new Time(b.happen_at).getTimestamp());
     }
     onMounted(fetchData1)
     watch(() => kind.value, fetchData1)
