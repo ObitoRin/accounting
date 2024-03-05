@@ -6,6 +6,7 @@ import { history } from './shared/history'
 import '@svgstore'
 import { createPinia, storeToRefs } from 'pinia'
 import { useMeStore } from './stores/useMeStore';
+import { useUserPreferenceStore } from './stores/useUserPreferenceStore'
 
 const router = createRouter({ history, routes })
 const pinia = createPinia()
@@ -17,6 +18,9 @@ app.mount('#app')
 const meStore = useMeStore()
 const { mePromise } = storeToRefs(meStore)
 meStore.fetchMe()
+
+const userPreferenceStore = useUserPreferenceStore()
+userPreferenceStore.getUserPreference(localStorage.userPreferenceStore)
 
 const whiteList: Record<string, 'exact' | 'startsWith'> = {
   '/': 'exact',

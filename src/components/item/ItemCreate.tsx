@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive } from 'vue';
+import { defineComponent, onUnmounted, PropType, reactive, watchEffect } from 'vue';
 import { MainLayout } from '../../layouts/MainLayout';
 import s from './ItemCreate.module.scss';
 import { Tabs, Tab } from '../../shared/Tabs';
@@ -10,6 +10,7 @@ import { Dialog } from 'vant';
 import { AxiosError } from 'axios';
 import { BackIcon } from '../../shared/BackIcon';
 import { hasError, validate } from '../../shared/validate';
+import { useUserPreferenceStore } from '../../stores/useUserPreferenceStore';
 
 export const ItemCreate = defineComponent({
   props: {
@@ -21,10 +22,10 @@ export const ItemCreate = defineComponent({
     // const onUpdateSelected = (name: string) => {
     //   refKind.value = name
     // }
-
+    const userPreferenceStore = useUserPreferenceStore()
     const router = useRouter()
     const formData = reactive<Partial<Item>>({
-      kind: 'expenses',
+      kind: userPreferenceStore.kind || 'expenses',
       tag_ids: [],
       happen_at: new Date().toISOString(),
       amount: 0
@@ -65,6 +66,17 @@ export const ItemCreate = defineComponent({
       ).catch(onError)
       router.push('/items')
     }
+    watchEffect(
+      () => userPreferenceStore.changeKind(formData.kind as 'expenses' | 'income'),
+      { flush: "post" }
+    );
+    onUnmounted(() => {
+      localStorage.setItem('userPreferenceStore', JSON.stringify({
+        selected: userPreferenceStore.selected,
+        kind: userPreferenceStore.kind,
+        kindAccount: userPreferenceStore.kindAccount,
+      }))
+    })
 
     return () => (
       <div class={s.wrapper}>

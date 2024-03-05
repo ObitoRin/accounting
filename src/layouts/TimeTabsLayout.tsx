@@ -1,4 +1,4 @@
-import { PropType, defineComponent, reactive, ref } from 'vue';
+import { PropType, defineComponent, onUnmounted, reactive, ref, watch, watchEffect } from 'vue';
 import s from './TimeTabsLayout.module.scss';
 import { Dialog, Overlay } from 'vant'
 import { Time } from '../shared/time';
@@ -8,6 +8,7 @@ import { Tab, Tabs } from '../shared/Tabs';
 import { Form, FormItem } from '../shared/Form';
 import { useMeStore } from '../stores/useMeStore';
 import { useRouter } from 'vue-router';
+import { useUserPreferenceStore } from '../stores/useUserPreferenceStore';
 
 const demo = defineComponent({
   props: {
@@ -38,7 +39,8 @@ export const TimeTabsLayout = defineComponent({
     }
   },
   setup: (props, context) => {
-    const refSelected = ref('本月')
+    const userPreferenceStore = useUserPreferenceStore()
+    const refSelected = ref(userPreferenceStore.selected === '今年' && props.hideThisYear ? '本月' : userPreferenceStore.selected)
     const time = new Time()
     const tempTime = reactive({
       start: new Time().format(),
@@ -83,6 +85,24 @@ export const TimeTabsLayout = defineComponent({
       Object.assign(customTime, tempTime)
     }
     
+    watchEffect(
+      () => {
+        if (refSelected.value === '自定义时间') {
+          refOverlayVisible.value = true
+        }
+        userPreferenceStore.changeSelected(refSelected.value)
+        
+      },
+      { flush: "post" }
+    );
+    onUnmounted(() => {
+      localStorage.setItem('userPreferenceStore', JSON.stringify({
+        selected: userPreferenceStore.selected,
+        kind: userPreferenceStore.kind,
+        kindAccount: userPreferenceStore.kindAccount,
+      }))
+    })
+
     return () => (
       <MainLayout>
         {{

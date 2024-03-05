@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch, watchEffect } from 'vue';
 import { FormItem } from '../../shared/Form';
 import s from './Chart.module.scss';
 import { LineChart } from './LineChart';
@@ -6,6 +6,7 @@ import { PieChart } from './PieChart';
 import { Bars } from './Bars';
 import { http } from '../../shared/Http';
 import { Time } from '../../shared/time';
+import { useUserPreferenceStore } from '../../stores/useUserPreferenceStore';
 
 const DAY = 24 * 3600 * 1000
 
@@ -26,7 +27,8 @@ export const Chart = defineComponent({
     }
   },
   setup: (props, context) => {
-    const kind = ref('expenses')
+    const userPreferenceStore = useUserPreferenceStore()
+    const kind = ref(userPreferenceStore.kindAccount || 'expenses')
 
     const data1 = ref<Data1>([])
     const betterData1 = computed<[string, number][]>(() => {
@@ -85,6 +87,18 @@ export const Chart = defineComponent({
       return data2.value.map(item => ({
         ...item,
         percent: Math.round(item.amount / total * 100)
+      }))
+    })
+
+    watchEffect(
+      () => userPreferenceStore.changeKindAccount(kind.value),
+      { flush: "post" }
+    );
+    onUnmounted(() => {
+      localStorage.setItem('userPreferenceStore', JSON.stringify({
+        selected: userPreferenceStore.selected,
+        kind: userPreferenceStore.kind,
+        kindAccount: userPreferenceStore.kindAccount,
       }))
     })
 
