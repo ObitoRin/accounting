@@ -1,16 +1,30 @@
-# Vue 3 + Typescript + Vite
+# Vue 3 + TSX 荔枝记账
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 介绍
+![](http://162.14.109.133/images/lychee-introduce.png)
 
-## Recommended IDE Setup
+1. 荔枝记账是一款基于 Vue 3 + TSX 和现代前端技术栈构建的个人财务管理应用，专注于提供简洁易用、功能完善的记账体验。
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+2. 此项目采用了最新的Vue生态系统组件，如 Vue 3 作为核心框架，并结合 Vue Router 进行页面路由管理，通过路由守卫进行权限控制，确保了单页应用的高效与流畅。
 
-## Type Support For `.vue` Imports in TS
+3. 状态管理存储方面采用 Pinia。引用 Faker.js 来生成随机模拟数据。
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+4. 封装 Axios 请求统一管理后期维护，并且添加了全局请求和响应拦截器，请求拦截器中添加请求头携带登录令牌、显示 loading 加载提示，响应拦截器中针对不同错误情况做相应的错误处理。
 
-1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+5. 可视化层面使用 ECharts 展示各类财务统计数据，增强用户对收支明细的直观性。
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+6. 封装组件 Form、FormItem、Tabs、Button、Icon等，封装表单验证。
+
+7. 使用 TypeScript 开发提升代码质量和可维护性，构建工具使用 Vite，配合相关插件 @vitejs/plugin-vue-jsx，采用 TSX 编写代码。
+
+8. 登录方面您可以使用我提前准备好的邮箱及验证码直接登录，也可自行输入邮箱获取验证码登录。
+
+## 启动
+```bash
+pnpm run dev
+```
+
+## 打包
+```bash
+pnpm run build
+```
