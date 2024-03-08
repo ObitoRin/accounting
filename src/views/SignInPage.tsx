@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive, ref } from 'vue';
+import { defineComponent, onMounted, PropType, reactive, ref } from 'vue';
 import s from './SignInPage.module.scss';
 import { Form, FormItem } from '../shared/Form';
 import { hasError, validate } from '../shared/validate';
@@ -76,6 +76,12 @@ export const SignInPage = defineComponent({
         .finally(enable)
       refValidationCode.value.startCount()
     }
+    onMounted(() => {
+      if (route.query.preview === 'yes') {
+        formData.email = 'Obitoxian@163.com'
+        formData.code = '123456'
+      }
+    })
     return () => (
       <MainLayout>
         {{
